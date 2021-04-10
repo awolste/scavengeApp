@@ -1,14 +1,8 @@
 package com.example.finalproject16;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.LightingColorFilter;
-import android.graphics.Paint;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,20 +12,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.android.volley.VolleyError;
+import com.google.api.client.extensions.android.json.AndroidJsonFactory;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.services.vision.v1.Vision;
+import com.google.api.services.vision.v1.VisionRequestInitializer;
+import com.google.api.services.vision.v1.model.AnnotateImageRequest;
+import com.google.api.services.vision.v1.model.BatchAnnotateImagesRequest;
+import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
+import com.google.api.services.vision.v1.model.EntityAnnotation;
+import com.google.api.services.vision.v1.model.Feature;
+import com.google.api.services.vision.v1.model.Image;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.lang.ref.WeakReference;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class CameraActivity extends AppCompatActivity {
@@ -42,6 +49,8 @@ public class CameraActivity extends AppCompatActivity {
 
     private ImageView mPhotoImageView;
     private Button mSaveButton;
+    private Vision vision;
+    private TextView labelView;
 
     // For adding brightness
     private int mMultColor = 0xffffffff;
@@ -57,6 +66,19 @@ public class CameraActivity extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.saveButton);
         mSaveButton.setEnabled(false);
+
+        labelView = findViewById(R.id.myTextView);
+
+        Vision.Builder visionBuilder = new Vision.Builder(
+                new NetHttpTransport(),
+                new AndroidJsonFactory(),
+                null);
+
+        visionBuilder.setVisionRequestInitializer(
+                new VisionRequestInitializer("AIzaSyD9NrId_A2zpvpUZBlkE-lxnWXo4zQcoco"));
+
+        vision = visionBuilder.build();
+
     }
 
     public void takePhotoClick(View view) {
@@ -97,6 +119,64 @@ public class CameraActivity extends AppCompatActivity {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             displayPhoto();
 
+            //String url = data.getStringExtra(MediaStore.EXTRA_OUTPUT);
+            //Log.i("URL", url);
+            //mInfoFetcher.fetchSubjects(mFetchListener, url);
+
+            // Create new thread
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        byte[] bytes = Files.readAllBytes(mPhotoFile.toPath());
+                        Image inputImage = new Image();
+                        inputImage.encodeContent(bytes);
+
+                        Feature desiredFeature = new Feature();
+                        desiredFeature.setType("LABEL_DETECTION");
+
+                        AnnotateImageRequest request = new AnnotateImageRequest();
+                        request.setImage(inputImage);
+                        request.setFeatures(Arrays.asList(desiredFeature));
+
+                        BatchAnnotateImagesRequest batchRequest =
+                                new BatchAnnotateImagesRequest();
+
+                        batchRequest.setRequests(Arrays.asList(request));
+
+                        BatchAnnotateImagesResponse batchResponse =
+                                vision.images().annotate(batchRequest).execute();
+
+                        List<EntityAnnotation> labels = batchResponse.getResponses()
+                                .get(0).getLabelAnnotations();
+
+                        // Count faces
+                        int num = labels.size();
+                        String descriptions = "";
+                        for(int i=0; i<num; i++) {
+                            descriptions += "\n This is a " +
+                                    labels.get(i).getDescription();
+                        }
+
+
+                        Log.i("RESULT", labels + "");
+
+                        String finalDescriptions = descriptions;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                labelView.setText(finalDescriptions);
+                            }
+                        });
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    // More code here
+                }
+            });
+
             mSaveButton.setEnabled(true);
         }
     }
@@ -136,26 +216,9 @@ public class CameraActivity extends AppCompatActivity {
         mPhotoImageView.setImageBitmap(bitmap);
     }
 
-    private void changeBrightness(int brightness) {
-        // TODO: Change brightness
-    }
-
     public void savePhotoClick(View view) {
-        // Don't allow Save button to be pressed while image is saving
-        mSaveButton.setEnabled(false);
-
-        // Save image in background thread
-        ImageSaver imageSaver = new ImageSaver(this);
-        imageSaver.saveAlteredPhotoAsync(mPhotoFile, mMultColor, mAddColor, new ImageSaver.SaveImageCallback() {
-            @Override
-            public void onComplete(boolean result) {
-                // Show appropriate message
-                int message = result ? R.string.photo_saved : R.string.photo_not_saved;
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-
-                // Allow Save button to be clicked again
-                mSaveButton.setEnabled(true);
-            }
-        });
+        // add points and mark task as completed
+        // redirect to leaderboard
     }
+
 }
