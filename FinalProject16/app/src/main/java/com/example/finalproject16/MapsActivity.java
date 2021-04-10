@@ -2,7 +2,13 @@ package com.example.finalproject16;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -19,8 +25,11 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -34,7 +43,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FusedLocationProviderClient mClient;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
-    private float mZoomLevel = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 if (locationResult != null) {
-                    for (Location location : locationResult.getLocations()) {
-                        updateMap(location);
-                    }
+                        updateMap();
                 }
             }
         };
@@ -67,42 +73,67 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
-    private void updateMap(Location location) {
-        // Get current location
-        LatLng myLatLng = new LatLng(location.getLatitude(),
-                location.getLongitude());
-
-        // Place a marker at the current location
-        MarkerOptions myMarker = new MarkerOptions()
-                .title("Here you are!")
-                .position(myLatLng);
-
-        // Remove previous marker
-        mMap.clear();
-
-        // Add new marker
-        mMap.addMarker(myMarker);
-
+    private void updateMap() {
+        LatLng StartingPoint = new LatLng(34.683546, -82.837632);
         // Move and zoom to current location at the street level
         CameraUpdate update = CameraUpdateFactory.
-                newLatLngZoom(myLatLng, 15);
-        mMap.animateCamera(update);
-
-        // Zoom to previously saved level
-        update = CameraUpdateFactory.newLatLngZoom(myLatLng, mZoomLevel);
+                newLatLngZoom(StartingPoint, 20);
         mMap.animateCamera(update);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_local_dining_24);
+
+        // Get current location
+        LatLng TigerTownTavern = new LatLng(34.683375,-82.83735);
+        LatLng ThreeFiveSix = new LatLng(34.683192, -82.837352);
+        LatLng StudyHall = new LatLng(34.683375, -82.83774);
+        LatLng itsurweiner = new LatLng(34.684303, -82.836281);
+        LatLng StartingPoint = new LatLng(34.683546, -82.837632);
+
+        // Place a marker at the current location
+        MarkerOptions markerTTT = new MarkerOptions()
+                .title("Tiger Town Tavern")
+                //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
+                .position(TigerTownTavern);
+
+        MarkerOptions marker356 = new MarkerOptions()
+                .title("356 Sushi")
+                //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
+                .position(ThreeFiveSix);
+
+        MarkerOptions markerStudy = new MarkerOptions()
+                .title("Study Hall")
+                //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
+                .position(StudyHall);
+
+        MarkerOptions markerWein = new MarkerOptions()
+                .title("ITSURWEINER")
+                //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
+                .position(itsurweiner);
+
+        MarkerOptions markerStart = new MarkerOptions()
+                .title("You are here")
+                //.icon(icon)
+                .position(StartingPoint);
+
+                // Remove previous marker
+                        mMap.clear();
+
+        // Add new marker
+        mMap.addMarker(markerTTT);
+        mMap.addMarker(marker356);
+        mMap.addMarker(markerStudy);
+        mMap.addMarker(markerWein);
+        mMap.addMarker(markerStart);
 
         // Save zoom level
         mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
             @Override
             public void onCameraMove() {
                 CameraPosition cameraPosition = mMap.getCameraPosition();
-                mZoomLevel = cameraPosition.zoom;
             }
         });
 
@@ -110,8 +141,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Toast.makeText(MapsActivity.this, "Lat: " + marker.getPosition().latitude +
-                        "\nLong: " + marker.getPosition().longitude, Toast.LENGTH_LONG).show();
+                Toast.makeText(MapsActivity.this, marker.getTitle(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+                startActivity(intent);
+
                 return false;
             }
         });
