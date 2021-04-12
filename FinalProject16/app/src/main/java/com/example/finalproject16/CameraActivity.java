@@ -152,11 +152,16 @@ public class CameraActivity extends AppCompatActivity {
 
                         // Count faces
                         int num = labels.size();
-                        String descriptions = "";
-                        for(int i=0; i<num; i++) {
-                            descriptions += "\n This is a " +
-                                    labels.get(i).getDescription();
+                        String descriptions = "You Scanned a ";
+                        for(int i=0; i<5; i++) {
+                            if (i == 4 ) {
+                                descriptions += " and a " + labels.get(i).getDescription();
+                            }
+                            else {
+                                descriptions += ", " + labels.get(i).getDescription();
+                            }
                         }
+                        descriptions += ".";
 
 
                         Log.i("RESULT", labels + "");

@@ -6,4 +6,5 @@
     <string name="photo_saved">Photo saved.</string>
     <string name="photo_not_saved">Problem saving the photo.</string>
     <string name="title_activity_maps">Map</string>
+    <string name="signout">Sign Out</string>
 </resources>
