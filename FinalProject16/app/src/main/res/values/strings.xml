@@ -8,6 +8,6 @@
     <string name="title_activity_maps">Map</string>
     <string name="signout">Sign Out</string>
     <string name="welcome">scavenge</string>
-    <string name="warning">This app is only for those over the age of 21</string>
+    <string name="warning">Must be 21 years old to use app. Please drink responsibly.\nScavenge is not responsible for drinking related accidents.</string>
 
 </resources>

@@ -96,26 +96,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Place a marker at the current location
         MarkerOptions markerTTT = new MarkerOptions()
                 .title("Tiger Town Tavern")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
                 .position(TigerTownTavern);
 
         MarkerOptions marker356 = new MarkerOptions()
                 .title("356 Sushi")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
                 .position(ThreeFiveSix);
 
         MarkerOptions markerStudy = new MarkerOptions()
                 .title("Study Hall")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
                 .position(StudyHall);
 
         MarkerOptions markerWein = new MarkerOptions()
                 .title("ITSURWEINER")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
                 .position(itsurweiner);
 
         MarkerOptions markerStart = new MarkerOptions()
                 .title("You are here")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                 //.icon(icon)
                 .position(StartingPoint);
 
