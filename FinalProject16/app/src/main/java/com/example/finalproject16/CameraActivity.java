@@ -149,19 +149,17 @@ public class CameraActivity extends AppCompatActivity {
 
                         List<EntityAnnotation> labels = batchResponse.getResponses()
                                 .get(0).getLabelAnnotations();
+                        Log.i("LABELS", labels+"");
 
                         // Count faces
                         int num = labels.size();
-                        String descriptions = "You Scanned a ";
-                        for(int i=0; i<5; i++) {
-                            if (i == 4 ) {
-                                descriptions += " and a " + labels.get(i).getDescription();
+                        String descriptions = "Found:\n";
+                        for(int i=0; i<num; i++) {
+                            if (labels.get(i).getScore() > .8 ) {
+                                descriptions += labels.get(i).getDescription() + "\n";
                             }
-                            else {
-                                descriptions += ", " + labels.get(i).getDescription();
-                            }
+                            //else {descriptions += ", " + labels.get(i).getDescription(); }
                         }
-                        descriptions += ".";
 
 
                         Log.i("RESULT", labels + "");

@@ -7,4 +7,7 @@
     <string name="photo_not_saved">Problem saving the photo.</string>
     <string name="title_activity_maps">Map</string>
     <string name="signout">Sign Out</string>
+    <string name="welcome">scavenge</string>
+    <string name="warning">This app is only for those over the age of 21</string>
+
 </resources>

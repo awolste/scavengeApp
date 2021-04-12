@@ -65,7 +65,9 @@ public class SignIn extends AppCompatActivity {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        //updateUI(account);
+        if (account != null) {
+            startActivity(new Intent(SignIn.this, MainActivity.class));
+        }
 
     }
 
