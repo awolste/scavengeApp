@@ -99,7 +99,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .title("Tiger Town Tavern")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
-                .position(TigerTownTavern);
+                .position(TigerTownTavern)
+                .snippet("Upload a picture of fries");
 
         MarkerOptions marker356 = new MarkerOptions()
                 .title("356 Sushi")
@@ -150,7 +151,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Toast.makeText(MapsActivity.this, marker.getTitle(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MapsActivity.this, MainActivity.class);
+                Intent intent = new Intent(MapsActivity.this, CameraActivity.class);
+                intent.putExtra("BARNAME", marker.getTitle());
+                intent.putExtra("TASK", marker.getSnippet());
                 startActivity(intent);
 
                 return false;

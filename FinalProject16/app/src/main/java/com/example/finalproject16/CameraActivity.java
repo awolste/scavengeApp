@@ -67,6 +67,16 @@ public class CameraActivity extends AppCompatActivity {
         mSaveButton = findViewById(R.id.saveButton);
         mSaveButton.setEnabled(false);
 
+        Intent intent = getIntent();
+        String barName = intent.getStringExtra("BARNAME");
+        String task = intent.getStringExtra("TASK");
+        TextView barNameText = findViewById(R.id.barNameText);
+        barNameText.setText(barName);
+        TextView barTask = findViewById(R.id.barTask);
+        barTask.setText(task);
+
+
+
         labelView = findViewById(R.id.myTextView);
 
         Vision.Builder visionBuilder = new Vision.Builder(
