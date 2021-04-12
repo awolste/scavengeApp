@@ -155,8 +155,8 @@ public class CameraActivity extends AppCompatActivity {
                         int num = labels.size();
                         String descriptions = "Found:\n";
                         for(int i=0; i<num; i++) {
-                            if (labels.get(i).getScore() > .8 ) {
-                                descriptions += labels.get(i).getDescription() + "\n";
+                            if (labels.get(i).getScore() > .85 ) {
+                                descriptions += "\t"+ labels.get(i).getDescription() + "\n";
                             }
                             //else {descriptions += ", " + labels.get(i).getDescription(); }
                         }
