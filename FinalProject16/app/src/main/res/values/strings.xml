@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FinalProject16</string>
-    <string name="take_photo">Take Photo</string>
-    <string name="save">Save</string>
+    <string name="take_photo">Scan</string>
+    <string name="save">Confirm</string>
     <string name="photo_desc">Photo from camera</string>
     <string name="photo_saved">Photo saved.</string>
     <string name="photo_not_saved">Problem saving the photo.</string>
@@ -9,5 +9,25 @@
     <string name="signout">Sign Out</string>
     <string name="welcome">scavenge</string>
     <string name="warning">Must be 21 years old to use app. Please drink responsibly.\nScavenge is not responsible for drinking related accidents.</string>
+    <string name="ttt">Tiger Town Tavern</string>
+    <string name="sushi">356 Sushi</string>
+    <string name="study">Study Hall</string>
+    <string name="wein">ITSURWEINER</string>
+    <string name="you">You Are Here</string>
+    <string name="scan">Please Scan Item for Points</string>
+    <string name="cancel">Cancel</string>
+
+    <string-array name="tasks">
+        <item name="task1">Buy a Beer</item>
+        <item name="task2">Buy a Cocktail</item>
+        <item name="task3">Buy a Glass of Wine</item>
+        <item name="task4">Buy Fries</item>
+        <item name="task5">Buy Sushi</item>
+        <item name="task6">Buy a Hot Dog</item>
+        <item name="task7">Buy a Burger</item>
+        <item name="task8">Buy Chicken Tenders</item>
+        <item name="task9">Buy Someone a Drink</item>
+        <item name="task10">Buy a Round of Drinks</item>
+    </string-array>
 
 </resources>

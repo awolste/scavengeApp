@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -36,6 +37,8 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Random;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private final int REQUEST_LOCATION_PERMISSIONS = 0;
@@ -44,11 +47,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FusedLocationProviderClient mClient;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
+    private Location lastLoc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        lastLoc = new Location("");
+        lastLoc.setLatitude(0);
+        lastLoc.setLongitude(0);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -62,16 +71,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         // Create location callback
+        //only trigger camera reset when moving a mile
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                if (locationResult != null) {
-                        updateMap();
+                if (locationResult != null && (
+                        Math.abs(locationResult.getLastLocation().getLatitude() - lastLoc.getLatitude()) > .01 ||
+                        Math.abs(locationResult.getLastLocation().getLongitude() - lastLoc.getLongitude()) > .01) ) {
+                    Log.i("LOCATION", locationResult.getLastLocation().getLatitude() + " " + locationResult.getLocations().get(0).getLatitude());
+                    lastLoc = locationResult.getLastLocation();
+                    updateMap();
                 }
             }
         };
 
         mClient = LocationServices.getFusedLocationProviderClient(this);
+        //mClient.removeLocationUpdates(mLocationRequest);
     }
 
     private void updateMap() {
@@ -84,6 +99,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Random rand = new Random();
+        String[] tasks = getResources().getStringArray(R.array.tasks);
+
         mMap = googleMap;
         //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_local_dining_24);
 
@@ -94,31 +112,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng itsurweiner = new LatLng(34.684303, -82.836281);
         LatLng StartingPoint = new LatLng(34.683546, -82.837632);
 
+        Log.i("NUMBER", rand.nextInt(tasks.length) + "");
+
         // Place a marker at the current location
         MarkerOptions markerTTT = new MarkerOptions()
                 .title("Tiger Town Tavern")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
                 .position(TigerTownTavern)
-                .snippet("Upload a picture of fries");
+                .snippet(tasks[rand.nextInt(tasks.length)]);
 
         MarkerOptions marker356 = new MarkerOptions()
                 .title("356 Sushi")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
-                .position(ThreeFiveSix);
+                .position(ThreeFiveSix)
+                .snippet(tasks[rand.nextInt(tasks.length)]);
 
         MarkerOptions markerStudy = new MarkerOptions()
                 .title("Study Hall")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
-                .position(StudyHall);
+                .position(StudyHall)
+                .snippet(tasks[rand.nextInt(tasks.length)]);
 
         MarkerOptions markerWein = new MarkerOptions()
                 .title("ITSURWEINER")
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
-                .position(itsurweiner);
+                .position(itsurweiner)
+                .snippet(tasks[rand.nextInt(tasks.length)]);
 
         MarkerOptions markerStart = new MarkerOptions()
                 .title("You are here")

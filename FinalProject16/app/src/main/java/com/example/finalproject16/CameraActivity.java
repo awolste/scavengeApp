@@ -49,6 +49,7 @@ public class CameraActivity extends AppCompatActivity {
 
     private ImageView mPhotoImageView;
     private Button mSaveButton;
+    private Button mCancelButton;
     private Vision vision;
     private TextView labelView;
 
@@ -66,6 +67,8 @@ public class CameraActivity extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.saveButton);
         mSaveButton.setEnabled(false);
+        mCancelButton = findViewById(R.id.cancel);
+        mCancelButton.setOnClickListener(mButtonClickListener);
 
         Intent intent = getIntent();
         String barName = intent.getStringExtra("BARNAME");
@@ -233,5 +236,19 @@ public class CameraActivity extends AppCompatActivity {
         // add points and mark task as completed
         // redirect to leaderboard
     }
+
+    // Create an anonymous implementation of OnClickListener
+    private View.OnClickListener mButtonClickListener = new View.OnClickListener() {
+        /**
+         * onClick is called when the learn more button is pressed
+         * this function changes the activity page to the bio page
+         * @pre activity is set to main activity
+         * @post activity is set to bio page
+         *
+         * */
+        public void onClick(View v) {
+            startActivity(new Intent(CameraActivity.this, MapsActivity.class));
+        }
+    };
 
 }
