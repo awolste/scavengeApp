@@ -49,6 +49,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationCallback mLocationCallback;
     private Location lastLoc;
 
+    private double startingLat = 34.683546;
+    private double startingLong = -82.837632;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +92,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void updateMap() {
-        LatLng StartingPoint = new LatLng(34.683546, -82.837632);
+        LatLng StartingPoint = new LatLng(startingLat, startingLong);
         // Move and zoom to current location at the street level
         CameraUpdate update = CameraUpdateFactory.
                 newLatLngZoom(StartingPoint, 20);
@@ -106,41 +108,81 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_local_dining_24);
 
         // Get current location
+        LatLng StartingPoint = new LatLng(34.683546, -82.837632);
         LatLng TigerTownTavern = new LatLng(34.683375,-82.83735);
         LatLng ThreeFiveSix = new LatLng(34.683192, -82.837352);
         LatLng StudyHall = new LatLng(34.683375, -82.83774);
         LatLng itsurweiner = new LatLng(34.684303, -82.836281);
-        LatLng StartingPoint = new LatLng(34.683546, -82.837632);
+        LatLng Backstreets = new LatLng(34.683597,-82.836729);
+        LatLng Tds = new LatLng(34.682356, -82.837336);
+        LatLng Nicks = new LatLng(34.683567, -82.837857);
+        LatLng Loose = new LatLng(34.682469, -82.837405);
+        LatLng Csp = new LatLng(34.682743, -82.837509);
 
         Log.i("NUMBER", rand.nextInt(tasks.length) + "");
 
         // Place a marker at the current location
         MarkerOptions markerTTT = new MarkerOptions()
-                .title("Tiger Town Tavern")
+                .title(getString(R.string.ttt))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
                 .position(TigerTownTavern)
                 .snippet(tasks[rand.nextInt(tasks.length)]);
 
         MarkerOptions marker356 = new MarkerOptions()
-                .title("356 Sushi")
+                .title(getString(R.string.sushi))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
                 .position(ThreeFiveSix)
                 .snippet(tasks[rand.nextInt(tasks.length)]);
 
         MarkerOptions markerStudy = new MarkerOptions()
-                .title("Study Hall")
+                .title(getString(R.string.study))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
                 .position(StudyHall)
                 .snippet(tasks[rand.nextInt(tasks.length)]);
 
         MarkerOptions markerWein = new MarkerOptions()
-                .title("ITSURWEINER")
+                .title(getString(R.string.wein))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
                 //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
                 .position(itsurweiner)
+                .snippet(tasks[rand.nextInt(tasks.length)]);
+
+        MarkerOptions markerBack = new MarkerOptions()
+                .title(getString(R.string.back))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
+                //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
+                .position(Backstreets)
+                .snippet(tasks[rand.nextInt(tasks.length)]);
+
+        MarkerOptions markerTd = new MarkerOptions()
+                .title(getString(R.string.td))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
+                //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
+                .position(Tds)
+                .snippet(tasks[rand.nextInt(tasks.length)]);
+
+        MarkerOptions markerNick = new MarkerOptions()
+                .title(getString(R.string.nicks))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
+                //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
+                .position(Nicks)
+                .snippet(tasks[rand.nextInt(tasks.length)]);
+
+        MarkerOptions markerLoose = new MarkerOptions()
+                .title(getString(R.string.loose))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
+                //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
+                .position(Loose)
+                .snippet(tasks[rand.nextInt(tasks.length)]);
+
+        MarkerOptions markerCsp = new MarkerOptions()
+                .title(getString(R.string.csp))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_beer))
+                //.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.ic_baseline_local_dining_24)))
+                .position(Csp)
                 .snippet(tasks[rand.nextInt(tasks.length)]);
 
         MarkerOptions markerStart = new MarkerOptions()
@@ -157,6 +199,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(marker356);
         mMap.addMarker(markerStudy);
         mMap.addMarker(markerWein);
+        mMap.addMarker(markerLoose);
+        mMap.addMarker(markerBack);
+        mMap.addMarker(markerTd);
+        mMap.addMarker(markerNick);
+        mMap.addMarker(markerLoose);
+        mMap.addMarker(markerCsp);
         mMap.addMarker(markerStart).showInfoWindow();
 
         googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
@@ -173,10 +221,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+                Log.i("CLICK", "clicked" + marker.getTitle());
                 //Toast.makeText(MapsActivity.this, marker.getTitle(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(MapsActivity.this, CameraActivity.class);
+
                 intent.putExtra("BARNAME", marker.getTitle());
                 intent.putExtra("TASK", marker.getSnippet());
+                intent.putExtra("TASKLAT", marker.getPosition().latitude);
+                intent.putExtra("TASKLONG", marker.getPosition().longitude);
+
+                //for now we hard code a starting location for demoing
+                intent.putExtra("USERLAT", startingLat);
+                intent.putExtra("USERLONG", startingLong);
+
                 startActivity(intent);
 
                 return false;

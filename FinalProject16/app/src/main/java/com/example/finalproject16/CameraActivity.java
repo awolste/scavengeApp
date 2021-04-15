@@ -52,6 +52,10 @@ public class CameraActivity extends AppCompatActivity {
     private Button mCancelButton;
     private Vision vision;
     private TextView labelView;
+    private double taskLat;
+    private double taskLong;
+    private double userLat;
+    private double userLong;
 
     // For adding brightness
     private int mMultColor = 0xffffffff;
@@ -67,6 +71,7 @@ public class CameraActivity extends AppCompatActivity {
 
         mSaveButton = findViewById(R.id.saveButton);
         mSaveButton.setEnabled(false);
+
         mCancelButton = findViewById(R.id.cancel);
         mCancelButton.setOnClickListener(mButtonClickListener);
 
@@ -78,7 +83,10 @@ public class CameraActivity extends AppCompatActivity {
         TextView barTask = findViewById(R.id.barTask);
         barTask.setText(task);
 
-
+        taskLat = intent.getDoubleExtra("TASKLAT", 0);
+        taskLong = intent.getDoubleExtra("TASKLONG", 0);
+        userLat = intent.getDoubleExtra("USERLAT", 0);
+        userLong = intent.getDoubleExtra("USERLONG", 0);
 
         labelView = findViewById(R.id.myTextView);
 
@@ -194,6 +202,7 @@ public class CameraActivity extends AppCompatActivity {
             });
 
             mSaveButton.setEnabled(true);
+            mSaveButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -235,6 +244,13 @@ public class CameraActivity extends AppCompatActivity {
     public void savePhotoClick(View view) {
         // add points and mark task as completed
         // redirect to leaderboard
+        Log.i("CHECKINGLOC", ""+ taskLat + ", "+taskLong+ " vs " + userLat+ ", "+userLong);
+        if (Math.abs(taskLat - userLat) > .001 || Math.abs(taskLong - userLong) > .001){
+            Toast.makeText(CameraActivity.this, "Not in Range of Task", Toast.LENGTH_LONG).show();
+        }
+        else {
+            startActivity(new Intent(CameraActivity.this, MainActivity.class));
+        }
     }
 
     // Create an anonymous implementation of OnClickListener

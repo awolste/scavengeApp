@@ -5,29 +5,52 @@
     <string name="photo_desc">Photo from camera</string>
     <string name="photo_saved">Photo saved.</string>
     <string name="photo_not_saved">Problem saving the photo.</string>
+    <string name="logo">Logo</string>
     <string name="title_activity_maps">Map</string>
     <string name="signout">Sign Out</string>
     <string name="welcome">scavenge</string>
+    <string name="intro">Welcome to <b>scavenge</b></string>
     <string name="warning">Must be 21 years old to use app. Please drink responsibly.\nScavenge is not responsible for any related accidents.</string>
+
     <string name="ttt">Tiger Town Tavern</string>
     <string name="sushi">356 Sushi</string>
     <string name="study">Study Hall</string>
     <string name="wein">ITSURWEINER</string>
+    <string name="back">Backstreets</string>
+    <string name="td">TD\'s of Clemson</string>
+    <string name="nicks">Nick\'s Tavern</string>
+    <string name="loose">Loose Change</string>
+    <string name="csp">Charleston Sports Pub</string>
+
     <string name="you">You Are Here</string>
     <string name="scan">Please Scan Item for Points</string>
     <string name="cancel">Cancel</string>
 
     <string-array name="tasks">
-        <item name="task1">Buy a Beer</item>
-        <item name="task2">Buy a Cocktail</item>
-        <item name="task3">Buy a Glass of Wine</item>
-        <item name="task4">Buy Fries</item>
-        <item name="task5">Buy Sushi</item>
-        <item name="task6">Buy a Hot Dog</item>
-        <item name="task7">Buy a Burger</item>
-        <item name="task8">Buy Chicken Tenders</item>
-        <item name="task9">Buy Someone a Drink</item>
-        <item name="task10">Buy a Round of Drinks</item>
+        <item name="task1">Grab a Beer</item>
+        <item name="task2">Have a Cocktail</item>
+        <item name="task3">Sip a Glass of Wine</item>
+        <item name="task4">Grab Some Fries</item>
+        <item name="task5">Try Some Sushi</item>
+        <item name="task6">Grab a Hot Dog</item>
+        <item name="task7">Have a Burger</item>
+        <item name="task8">Grab Some Chicken Tenders</item>
+        <item name="task9">Try a Basket of Wings</item>
+        <item name="task10">Buy Someone a Drink</item>
+        <item name="task11">Buy a Round of Drinks</item>
+    </string-array>
+
+    <string-array name="bars">
+        <item name="bar1">Tiger Town Tavern</item>
+        <item name="bar2">356 Sushi</item>
+        <item name="bar3">Study Hall</item>
+        <item name="bar4">ITSURWEINER</item>
+        <item name="bar5">Backstreets</item>
+        <item name="bar6">TD\'s of Clemson</item>
+        <item name="bar7">Nick\'s Tavern</item>
+        <item name="bar8">Loose Change</item>
+        <item name="bar9">Charleston Sports Pub</item>
+
     </string-array>
 
 </resources>
