@@ -4,50 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/primary">
 
-    <Button
-        android:id="@+id/toCamera"
+    <TextView
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/purple_200"
-        android:text="Camera"
+        android:layout_gravity="center"
+        android:layout_marginTop="225dp"
+        android:text="Welcome to Scavenge,"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-    <Button
-        android:id="@+id/toMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/purple_200"
-        android:text="Map"
-        app:layout_constraintLeft_toLeftOf="@id/toCamera"
-        app:layout_constraintTop_toBottomOf="@id/toCamera"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Display Name"
         android:layout_gravity="center"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/toMap"
-        app:layout_constraintLeft_toLeftOf="@id/toMap"
-        app:layout_constraintRight_toRightOf="@id/toMap"
-        android:textColor="@color/black"/>
+        android:layout_marginTop="275dp"
+        android:text="Display Name"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/toMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="250dp"
+        android:textColor="@color/third"
+        android:backgroundTint="@color/white"
+        android:text="Start Scavenging"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/sign_out_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/second"
         android:text="@string/signout"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/purple_200"
-        app:layout_constraintLeft_toLeftOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        app:layout_constraintRight_toRightOf="@+id/name"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toMap" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

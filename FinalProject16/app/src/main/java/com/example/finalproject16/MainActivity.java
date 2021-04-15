@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        Button button = findViewById(R.id.toCamera);
-        button.setOnClickListener(mButtonClickListener);
         Button button2 = findViewById(R.id.toMap);
         button2.setOnClickListener(mButtonClickListener2);
 
@@ -61,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            String personName = acct.getDisplayName();
+            String personName = acct.getGivenName();
             String personEmail = acct.getEmail();
             String personId = acct.getId();
 
@@ -80,20 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    // Create an anonymous implementation of OnClickListener
-    private View.OnClickListener mButtonClickListener = new View.OnClickListener() {
-        /**
-         * onClick is called when the learn more button is pressed
-         * this function changes the activity page to the bio page
-         * @pre activity is set to main activity
-         * @post activity is set to bio page
-         *
-         * */
-        public void onClick(View v) {
-            startActivity(new Intent(MainActivity.this, CameraActivity.class));
-        }
-    };
 
     // Create an anonymous implementation of OnClickListener
     private View.OnClickListener mButtonClickListener2 = new View.OnClickListener() {
