@@ -123,7 +123,7 @@ public class InfoFetcher {
      *
      * Source Zybooks 6.9
      * */
-    public void updateuser(final OnDataReceivedListener listener, String email) throws JSONException {
+    public void updateUser(final OnDataReceivedListener listener, String email) throws JSONException {
 
         JSONObject json = new JSONObject();
         json.put("email", email);
@@ -131,18 +131,17 @@ public class InfoFetcher {
 
         // Request all subjects
         JsonObjectRequest request = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, url, json, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        List<String> info = parseJson(response);
-                        Log.d("INFO", info.get(0));
-                        listener.onDataReceived(info);
+                        Log.d("UPDATING", "in update");
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d("ERROR", "in update");
                         listener.onErrorResponse(error);
                     }
                 });

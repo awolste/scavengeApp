@@ -152,10 +152,15 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onDataReceived(List<String> info) {
-            Log.i("GOTBACK", info.get(0).equals(email) + "");
-            if(!info.get(0).equals(email)){
+            if (info.size() == 0){
                 Log.i("CREATINGNEW", email);
                 createNew();
+            }
+            else {
+                if(!info.get(0).equals(email)){
+                    Log.i("CREATINGNEW", email);
+                    createNew();
+                }
             }
         }
 

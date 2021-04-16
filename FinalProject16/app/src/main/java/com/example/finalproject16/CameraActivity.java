@@ -255,13 +255,16 @@ public class CameraActivity extends AppCompatActivity {
             Toast.makeText(CameraActivity.this, "Not in Range of Task", Toast.LENGTH_LONG).show();
         }
         else {
+
             GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+
             if (acct != null) {
 
                 mInfoFetcher = new InfoFetcher(this);
 
                 try {
-                    mInfoFetcher.updateuser(mFetchListener, acct.getEmail());
+                    Log.i("SAVING", "saving points for " + acct.getEmail());
+                    mInfoFetcher.updateUser(mFetchListener, acct.getEmail());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
