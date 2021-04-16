@@ -46,7 +46,7 @@
 
     <Button
         android:id="@+id/toMap"
-        android:layout_width="wrap_content"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:textColor="@color/third"
         android:backgroundTint="@color/white"
@@ -54,6 +54,19 @@
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/photo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/toLeaderboard"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/third"
+        android:backgroundTint="@color/white"
+        android:text="Leaderboard"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/toMap"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

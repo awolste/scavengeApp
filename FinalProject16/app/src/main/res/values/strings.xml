@@ -53,4 +53,5 @@
 
     </string-array>
 
+    <string name="url">https://6l5z0zjqx5.execute-api.us-east-1.amazonaws.com/prod/user</string>
 </resources>

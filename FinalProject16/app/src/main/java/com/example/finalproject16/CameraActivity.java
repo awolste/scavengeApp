@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import com.android.volley.VolleyError;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.services.vision.v1.Vision;
@@ -30,6 +32,8 @@ import com.google.api.services.vision.v1.model.BatchAnnotateImagesResponse;
 import com.google.api.services.vision.v1.model.EntityAnnotation;
 import com.google.api.services.vision.v1.model.Feature;
 import com.google.api.services.vision.v1.model.Image;
+
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +60,8 @@ public class CameraActivity extends AppCompatActivity {
     private double taskLong;
     private double userLat;
     private double userLong;
+
+    private InfoFetcher mInfoFetcher;
 
     // For adding brightness
     private int mMultColor = 0xffffffff;
@@ -249,7 +255,18 @@ public class CameraActivity extends AppCompatActivity {
             Toast.makeText(CameraActivity.this, "Not in Range of Task", Toast.LENGTH_LONG).show();
         }
         else {
-            startActivity(new Intent(CameraActivity.this, MainActivity.class));
+            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+            if (acct != null) {
+
+                mInfoFetcher = new InfoFetcher(this);
+
+                try {
+                    mInfoFetcher.updateuser(mFetchListener, acct.getEmail());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            startActivity(new Intent(CameraActivity.this, Leaderboard.class));
         }
     }
 
@@ -264,6 +281,31 @@ public class CameraActivity extends AppCompatActivity {
          * */
         public void onClick(View v) {
             startActivity(new Intent(CameraActivity.this, MapsActivity.class));
+        }
+    };
+
+    /**
+     * @Pre
+     *      fetcher is called
+     * @Post
+     *      data is recieved
+     *      temptextview is set
+     *      condtextview is set
+     *      windtextview is set
+     *      detailstextview is set
+     *
+     * Source Zybooks 5.2, 5.3
+     * */
+    private InfoFetcher.OnDataReceivedListener mFetchListener = new InfoFetcher.OnDataReceivedListener() {
+
+        @Override
+        public void onDataReceived(List<String> info) {
+            Log.i("UPDATED", "points updated");
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+
         }
     };
 

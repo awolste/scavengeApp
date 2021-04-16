@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Camera;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -18,9 +21,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONException;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     GoogleSignInClient mGoogleSignInClient;
+    private InfoFetcher mInfoFetcher;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        Button button = findViewById(R.id.toLeaderboard);
+        button.setOnClickListener(mButtonClickListener);
 
         Button button2 = findViewById(R.id.toMap);
         button2.setOnClickListener(mButtonClickListener2);
@@ -60,10 +72,18 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personName = acct.getGivenName();
-            String personEmail = acct.getEmail();
+            email = acct.getEmail();
             String personId = acct.getId();
 
             name.setText(personName);
+
+            mInfoFetcher = new InfoFetcher(this);
+
+            try {
+                mInfoFetcher.getUser(mFetchListener, email);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -79,6 +99,29 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    private void createNew() {
+        try {
+            mInfoFetcher.createUser(mFetchListener2, email);
+            Toast.makeText(MainActivity.this, "Thanks for joining!", Toast.LENGTH_LONG).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Create an anonymous implementation of OnClickListener
+    private View.OnClickListener mButtonClickListener = new View.OnClickListener() {
+        /**
+         * onClick is called when the learn more button is pressed
+         * this function changes the activity page to the bio page
+         * @pre activity is set to main activity
+         * @post activity is set to bio page
+         *
+         * */
+        public void onClick(View v) {
+            startActivity(new Intent(MainActivity.this, Leaderboard.class));
+        }
+    };
+
     // Create an anonymous implementation of OnClickListener
     private View.OnClickListener mButtonClickListener2 = new View.OnClickListener() {
         /**
@@ -90,6 +133,47 @@ public class MainActivity extends AppCompatActivity {
          * */
         public void onClick(View v) {
             startActivity(new Intent(MainActivity.this, MapsActivity.class));
+        }
+    };
+
+    /**
+     * @Pre
+     *      fetcher is called
+     * @Post
+     *      data is recieved
+     *      temptextview is set
+     *      condtextview is set
+     *      windtextview is set
+     *      detailstextview is set
+     *
+     * Source Zybooks 5.2, 5.3
+     * */
+    private InfoFetcher.OnDataReceivedListener mFetchListener = new InfoFetcher.OnDataReceivedListener() {
+
+        @Override
+        public void onDataReceived(List<String> info) {
+            Log.i("GOTBACK", info.get(0).equals(email) + "");
+            if(!info.get(0).equals(email)){
+                Log.i("CREATINGNEW", email);
+                createNew();
+            }
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
+
+        }
+    };
+
+    private InfoFetcher.OnDataReceivedListener mFetchListener2 = new InfoFetcher.OnDataReceivedListener() {
+
+        @Override
+        public void onDataReceived(List<String> info) {
+            //Toast.makeText(MainActivity.this, "Thanks for joining!", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onErrorResponse(VolleyError error) {
         }
     };
 }
