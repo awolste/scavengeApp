@@ -117,18 +117,18 @@ public class Leaderboard  extends AppCompatActivity {
                 TextView points = new TextView(Leaderboard.this);
 
                 email.setText(info.get(count));
-                email.setTextSize(20);
+                email.setTextSize(25);
                 email.setTextColor( getResources().getColor(R.color.third));
                 email.setBackgroundColor(getResources().getColor(R.color.primary));
                 email.setPadding(1,1,1,1);
                 count++;
 
                 points.setText(info.get(count));
-                points.setTextSize(20);
+                points.setTextSize(25);
                 points.setTextColor( getResources().getColor(R.color.third));
                 points.setTextAlignment(View.TEXT_ALIGNMENT_TEXT_END);
                 points.setBackgroundColor(getResources().getColor(R.color.primary));
-                points.setPadding(1,1,1,1);
+                points.setPadding(10,1,10,1);
                 count++;
 
                 row.addView(email);

@@ -13,6 +13,9 @@
     <string name="welcome">scavenge</string>
     <string name="intro">Welcome to <b>scavenge</b></string>
     <string name="warning">Must be 21 years old to use app. Please drink responsibly.\nScavenge is not responsible for any related accidents.</string>
+    <string name="about">
+        <b>scavenge</b> is an interactive community game meant to bring people together at their local watering holes. You can find tasks to complete near you on the map. Simply choose a bar or restaurant denoted by our mug icon, click it to display the current task, and if interested, select the task. You will then be directed to complete the task by purchasing the specified food or drink item at the specified location. Once you have acquired the item, use our scanner to verify your completion. (Be sure not to cheat! <b>scavenge</b> can tell if you are at the correct location and if you are scanning the correct item) Then simply press complete and your score will be updated. Now go <b>scavenge</b> and get your name to the top of the leaderboard!
+    </string>
 
     <string name="ttt">Tiger Town Tavern</string>
     <string name="sushi">356 Sushi</string>
