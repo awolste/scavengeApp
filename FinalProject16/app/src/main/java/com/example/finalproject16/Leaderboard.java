@@ -89,8 +89,25 @@ public class Leaderboard  extends AppCompatActivity {
 
         @Override
         public void onDataReceived(List<String> info) {
-            //email.setText(info.get(0));
-            //points.setText(info.get(0) + " PTS");
+
+            boolean sorted = false;
+            String tempEmail;
+            String tempScore;
+            while(!sorted) {
+                sorted = true;
+                for (int i = 1; i < info.size() - 2; i += 2) {
+                    if (Integer.parseInt(info.get(i)) < Integer.parseInt(info.get(i + 2))) {
+                        tempEmail = info.get(i - 1);
+                        tempScore = info.get(i);
+                        info.set(i - 1, info.get(i + 1));
+                        info.set(i, info.get(i + 2));
+                        info.set(i + 1, tempEmail);
+                        info.set(i + 2, tempScore);
+                        sorted = false;
+                    }
+                }
+            }
+
             int count = 0;
             for (int i = 0; i < info.size()/2; i++ ) {
                 TableRow row = new TableRow(Leaderboard.this);

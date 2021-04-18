@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
@@ -51,6 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private double startingLat = 34.683546;
     private double startingLong = -82.837632;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -223,6 +225,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public boolean onMarkerClick(Marker marker) {
                 Log.i("CLICK", "clicked" + marker.getTitle());
                 //Toast.makeText(MapsActivity.this, marker.getTitle(), Toast.LENGTH_LONG).show();
+                marker.showInfoWindow();
+
+                return false;
+            }
+        });
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
                 Intent intent = new Intent(MapsActivity.this, CameraActivity.class);
 
                 intent.putExtra("BARNAME", marker.getTitle());
@@ -236,7 +247,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 startActivity(intent);
 
-                return false;
             }
         });
     }
@@ -271,5 +281,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         return true;
+    }
+
+    public void goHome(View view) {
+        startActivity(new Intent(MapsActivity.this, MainActivity.class));
     }
 }

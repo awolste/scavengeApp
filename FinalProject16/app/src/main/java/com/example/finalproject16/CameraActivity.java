@@ -60,6 +60,7 @@ public class CameraActivity extends AppCompatActivity {
     private double taskLong;
     private double userLat;
     private double userLong;
+    private boolean completed;
 
     private InfoFetcher mInfoFetcher;
 
@@ -72,6 +73,8 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camera_activity);
+
+        completed = false;
 
         mPhotoImageView = findViewById(R.id.photo);
 
@@ -145,6 +148,7 @@ public class CameraActivity extends AppCompatActivity {
 
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             displayPhoto();
+            labelView.setText("Scanning Item");
 
             //String url = data.getStringExtra(MediaStore.EXTRA_OUTPUT);
             //Log.i("URL", url);
@@ -178,24 +182,22 @@ public class CameraActivity extends AppCompatActivity {
                                 .get(0).getLabelAnnotations();
                         Log.i("LABELS", labels+"");
 
-                        // Count faces
-                        int num = labels.size();
-                        String descriptions = "Found:\n";
-                        for(int i=0; i<num; i++) {
-                            if (labels.get(i).getScore() > .85 ) {
-                                descriptions += "\t"+ labels.get(i).getDescription() + "\n";
+                        // Count labels
+                        for(int i=0; i<labels.size(); i++) {
+                            if (labels.get(i).getDescription().contains("Food") || labels.get(i).getDescription().contains("Drink")) {
+                                completed = true;
+                                Log.i("SEARCHINGLABELS", "True");
                             }
-                            //else {descriptions += ", " + labels.get(i).getDescription(); }
                         }
 
 
                         Log.i("RESULT", labels + "");
 
-                        String finalDescriptions = descriptions;
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                labelView.setText(finalDescriptions);
+                                labelView.setText("Item Scanned\nComplete for Points");
+                                labelView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                             }
                         });
 
@@ -250,26 +252,36 @@ public class CameraActivity extends AppCompatActivity {
     public void savePhotoClick(View view) {
         // add points and mark task as completed
         // redirect to leaderboard
+        //for now we will not check what the item is as the recognition is not perfect
+        // we check location to ensure the person is where the task is
         Log.i("CHECKINGLOC", ""+ taskLat + ", "+taskLong+ " vs " + userLat+ ", "+userLong);
         if (Math.abs(taskLat - userLat) > .001 || Math.abs(taskLong - userLong) > .001){
             Toast.makeText(CameraActivity.this, "Not in Range of Task", Toast.LENGTH_LONG).show();
         }
         else {
+            if (completed){
+                labelView.setText("Item Found!");
+                //Toast.makeText(CameraActivity.this, "Completed Task!", Toast.LENGTH_LONG).show();
+                GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 
-            GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+                if (acct != null) {
 
-            if (acct != null) {
+                    mInfoFetcher = new InfoFetcher(this);
 
-                mInfoFetcher = new InfoFetcher(this);
-
-                try {
-                    Log.i("SAVING", "saving points for " + acct.getEmail());
-                    mInfoFetcher.updateUser(mFetchListener, acct.getEmail());
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    try {
+                        Log.i("SAVING", "saving points for " + acct.getEmail());
+                        mInfoFetcher.updateUser(mFetchListener, acct.getEmail());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+                //Toast.makeText(CameraActivity.this, "Completed Task!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(CameraActivity.this, Leaderboard.class));
             }
-            startActivity(new Intent(CameraActivity.this, Leaderboard.class));
+            else {
+                labelView.setText("Item Scanned Does Not Match Task\nTry Again or Try Different Task");
+                labelView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            }
         }
     }
 

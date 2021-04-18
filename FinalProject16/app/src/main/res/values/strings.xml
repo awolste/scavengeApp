@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">FinalProject16</string>
     <string name="take_photo">Scan</string>
-    <string name="save">Confirm</string>
+    <string name="save">Complete</string>
+    <string name="home">Home</string>
+    <string name="score">Leaderboard</string>
     <string name="photo_desc">Photo from camera</string>
     <string name="photo_saved">Photo saved.</string>
     <string name="photo_not_saved">Problem saving the photo.</string>
@@ -30,14 +32,16 @@
         <item name="task1">Grab a Beer</item>
         <item name="task2">Have a Cocktail</item>
         <item name="task3">Sip a Glass of Wine</item>
+        <item name="task2">Have a Margarita</item>
         <item name="task4">Grab Some Fries</item>
-        <item name="task5">Try Some Sushi</item>
+        <item name="task5">Try Some Nachos</item>
         <item name="task6">Grab a Hot Dog</item>
         <item name="task7">Have a Burger</item>
         <item name="task8">Grab Some Chicken Tenders</item>
         <item name="task9">Try a Basket of Wings</item>
         <item name="task10">Buy Someone a Drink</item>
         <item name="task11">Buy a Round of Drinks</item>
+        <item name="task12">Grab a Slice of Pizza</item>
     </string-array>
 
     <string-array name="bars">

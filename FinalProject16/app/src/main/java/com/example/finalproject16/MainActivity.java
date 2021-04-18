@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     private void createNew() {
         try {
             mInfoFetcher.createUser(mFetchListener2, email);
-            Toast.makeText(MainActivity.this, "Thanks for joining!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(MainActivity.this, "Thanks for joining!", Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
