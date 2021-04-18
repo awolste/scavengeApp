@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FinalProject16</string>
+    <string name="app_name">scavenge</string>
     <string name="take_photo">Scan</string>
     <string name="save">Complete</string>
     <string name="home">Home</string>
