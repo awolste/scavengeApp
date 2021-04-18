@@ -30,10 +30,10 @@ public class SignIn extends AppCompatActivity {
         signInButton = findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             /**
-             * onClick is called when the learn more button is pressed
-             * this function changes the activity page to the bio page
+             * onClick is called when the sign in button is pressed
+             * this function changes the activity page to the sign in page
              * @pre activity is set to main activity
-             * @post activity is set to bio page
+             * @post activity is set to sign in page
              *
              * */
             public void onClick(View v) {
@@ -83,7 +83,11 @@ public class SignIn extends AppCompatActivity {
             handleSignInResult(task);
         }
     }
-
+    /**
+     * @pre a user has selected to sign in
+     * @post the user's google account is connected with the app and the MainActivity is started
+     *
+     * */
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);

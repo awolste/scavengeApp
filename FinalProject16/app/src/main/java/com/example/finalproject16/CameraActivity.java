@@ -68,7 +68,11 @@ public class CameraActivity extends AppCompatActivity {
     private int mMultColor = 0xffffffff;
     private int mAddColor = 0;
 
-
+    /**
+     * @pre an intent has been started with the target activity as CameraActivity
+     * @post activity is set to CameraActivity
+     *
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +115,11 @@ public class CameraActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @pre the CameraActivity has been started
+     * @post a photo is taken
+     *
+     * */
     public void takePhotoClick(View view) {
         // Create implicit intent
         Intent photoCaptureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -204,8 +213,6 @@ public class CameraActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
-                    // More code here
                 }
             });
 
@@ -214,6 +221,11 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @pre a photo has been taken
+     * @post an image file has been created
+     *
+     * */
     private File createImageFile() throws IOException {
         // Create a unique image filename
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
@@ -224,6 +236,11 @@ public class CameraActivity extends AppCompatActivity {
         return new File(storageDir, imageFilename);
     }
 
+    /**
+     * @pre an image has been taken
+     * @post the image is displayed on the screen
+     *
+     * */
     private void displayPhoto() {
         // Get ImageView dimensions
         int targetW = mPhotoImageView.getWidth();
@@ -249,6 +266,11 @@ public class CameraActivity extends AppCompatActivity {
         mPhotoImageView.setImageBitmap(bitmap);
     }
 
+    /**
+     * @pre a photo has been taken
+     * @post the photo is checked for item recognition
+     *
+     * */
     public void savePhotoClick(View view) {
         // add points and mark task as completed
         // redirect to leaderboard

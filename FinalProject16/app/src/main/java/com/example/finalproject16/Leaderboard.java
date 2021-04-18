@@ -24,7 +24,11 @@ public class Leaderboard  extends AppCompatActivity {
     private TableLayout board;
     private Button home;
     private Button map;
-
+    /**
+     * @pre an intent has been started with the target activity as Leaderboard
+     * @post activity is set to Leaderboard
+     *
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

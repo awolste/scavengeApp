@@ -53,7 +53,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private double startingLat = 34.683546;
     private double startingLong = -82.837632;
 
-
+    /**
+     * @pre an intent has been started with the target activity as MapsActivity
+     * @post activity is set to MapsActivity
+     *
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +96,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mClient = LocationServices.getFusedLocationProviderClient(this);
         //mClient.removeLocationUpdates(mLocationRequest);
     }
-
+    /**
+     * @pre triggered when the user's location has changed
+     * @post the map is updated to the user's current location
+     *
+     * */
     private void updateMap() {
         LatLng StartingPoint = new LatLng(startingLat, startingLong);
         // Move and zoom to current location at the street level
@@ -101,6 +109,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(update);
     }
 
+    /**
+     * @pre triggered when the map is ready to use
+     * @post the map is shown with all markers visible
+     *
+     * */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         Random rand = new Random();
@@ -221,6 +234,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Handle marker click
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            /**
+             * @pre the map is showing with all markers visible
+             * @post the marker's info window appears
+             *
+             * */
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Log.i("CLICK", "clicked" + marker.getTitle());
@@ -232,6 +250,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            /**
+             * @pre the marker's info window is shown on screen
+             * @post a new activity is started showing the current task at the given marker
+             *
+             * */
             @Override
             public void onInfoWindowClick(Marker marker) {
                 Intent intent = new Intent(MapsActivity.this, CameraActivity.class);

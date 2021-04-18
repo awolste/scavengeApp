@@ -30,7 +30,11 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     private InfoFetcher mInfoFetcher;
     private String email;
-
+    /**
+     * @pre the app has been started
+     * @post activity is set to MainActivity and shows the sign in page or home page if a user has already signed in
+     *
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @pre the user has selected to sign out
+     * @post no account is associated with the current instance of the app and the user may select to sign in
+     *
+     * */
     private void signOut() {
         mGoogleSignInClient.signOut()
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
@@ -110,13 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Create an anonymous implementation of OnClickListener
     private View.OnClickListener mButtonClickListener = new View.OnClickListener() {
-        /**
-         * onClick is called when the learn more button is pressed
-         * this function changes the activity page to the bio page
-         * @pre activity is set to main activity
-         * @post activity is set to bio page
-         *
-         * */
         public void onClick(View v) {
             startActivity(new Intent(MainActivity.this, Leaderboard.class));
         }
