@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
      * @post activity is set to MainActivity and shows the sign in page or home page if a user has already signed in
      *
      * */
+    private String firstName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button button2 = findViewById(R.id.toMap);
         button2.setOnClickListener(mButtonClickListener2);
+
+        Button button3 = findViewById(R.id.about);
+        button3.setOnClickListener(mButtonClickListener3);
 
         TextView name = findViewById(R.id.name);
         Button signOutButton = findViewById(R.id.sign_out_button);
@@ -75,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
-            String personName = acct.getGivenName();
+            firstName = acct.getGivenName();
             email = acct.getEmail();
             String personId = acct.getId();
 
-            name.setText(personName);
+            name.setText(firstName);
 
             mInfoFetcher = new InfoFetcher(this);
 
@@ -110,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void createNew() {
         try {
-            mInfoFetcher.createUser(mFetchListener2, email);
+            mInfoFetcher.createUser(mFetchListener2, email, firstName);
             //Toast.makeText(MainActivity.this, "Thanks for joining!", Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -135,6 +139,19 @@ public class MainActivity extends AppCompatActivity {
          * */
         public void onClick(View v) {
             startActivity(new Intent(MainActivity.this, MapsActivity.class));
+        }
+    };
+
+    private View.OnClickListener mButtonClickListener3 = new View.OnClickListener() {
+        /**
+         * onClick is called when the learn more button is pressed
+         * this function changes the activity page to the bio page
+         * @pre activity is set to main activity
+         * @post activity is set to bio page
+         *
+         * */
+        public void onClick(View v) {
+            startActivity(new Intent(MainActivity.this, About.class));
         }
     };
 

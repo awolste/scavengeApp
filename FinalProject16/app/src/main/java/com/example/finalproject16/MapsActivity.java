@@ -49,9 +49,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
     private Location lastLoc;
-
-    private double startingLat = 34.683546;
-    private double startingLong = -82.837632;
+    private LatLng StartingPoint;
+    private MarkerOptions markerStart;
 
     /**
      * @pre an intent has been started with the target activity as MapsActivity
@@ -102,7 +101,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      *
      * */
     private void updateMap() {
-        LatLng StartingPoint = new LatLng(startingLat, startingLong);
+        StartingPoint = new LatLng(lastLoc.getLatitude(), lastLoc.getLongitude());
+        markerStart = new MarkerOptions()
+                .title("You are here")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                //.icon(icon)
+                .position(StartingPoint);
+
+        mMap.addMarker(markerStart);
+
         // Move and zoom to current location at the street level
         CameraUpdate update = CameraUpdateFactory.
                 newLatLngZoom(StartingPoint, 20);
@@ -123,7 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_baseline_local_dining_24);
 
         // Get current location
-        LatLng StartingPoint = new LatLng(34.683546, -82.837632);
+        //LatLng StartingPoint = new LatLng(34.683546, -82.837632);
         LatLng TigerTownTavern = new LatLng(34.683375,-82.83735);
         LatLng ThreeFiveSix = new LatLng(34.683192, -82.837352);
         LatLng StudyHall = new LatLng(34.683375, -82.83774);
@@ -200,12 +207,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .position(Csp)
                 .snippet(tasks[rand.nextInt(tasks.length)]);
 
-        MarkerOptions markerStart = new MarkerOptions()
-                .title("You are here")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-                //.icon(icon)
-                .position(StartingPoint);
-
                 // Remove previous marker
                         mMap.clear();
 
@@ -220,7 +221,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(markerNick);
         mMap.addMarker(markerLoose);
         mMap.addMarker(markerCsp);
-        mMap.addMarker(markerStart).showInfoWindow();
 
         googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
 
@@ -265,8 +265,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 intent.putExtra("TASKLONG", marker.getPosition().longitude);
 
                 //for now we hard code a starting location for demoing
-                intent.putExtra("USERLAT", startingLat);
-                intent.putExtra("USERLONG", startingLong);
+                intent.putExtra("USERLAT", lastLoc.getLatitude());
+                intent.putExtra("USERLONG", lastLoc.getLongitude());
 
                 startActivity(intent);
 

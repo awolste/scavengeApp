@@ -136,6 +136,8 @@ public class InfoFetcher {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("UPDATING", "in update");
+                        List<String> info = parseJson(response);
+                        listener.onDataReceived(info);
                     }
                 }, new Response.ErrorListener() {
 
@@ -158,10 +160,11 @@ public class InfoFetcher {
      *
      * Source Zybooks 6.9
      * */
-    public void createUser(final OnDataReceivedListener listener, String email) throws JSONException {
+    public void createUser(final OnDataReceivedListener listener, String email, String name) throws JSONException {
 
         JSONObject json = new JSONObject();
         json.put("email", email);
+        json.put("name", name);
 
         // Request all subjects
         JsonObjectRequest request = new JsonObjectRequest
@@ -199,7 +202,7 @@ public class InfoFetcher {
         try {
             JSONArray items = json.getJSONObject("body").getJSONArray("Items");
             for(int j = 0; j < items.length(); j++){
-                info.add(items.getJSONObject(j).getString("Email"));
+                info.add(items.getJSONObject(j).getString("Name"));
                 info.add(items.getJSONObject(j).getString("Points"));
             }
 

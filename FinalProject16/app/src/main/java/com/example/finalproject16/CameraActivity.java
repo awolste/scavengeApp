@@ -298,7 +298,7 @@ public class CameraActivity extends AppCompatActivity {
                     }
                 }
                 //Toast.makeText(CameraActivity.this, "Completed Task!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(CameraActivity.this, Leaderboard.class));
+                //startActivity(new Intent(CameraActivity.this, Leaderboard.class));
             }
             else {
                 labelView.setText("Item Scanned Does Not Match Task\nTry Again or Try Different Task");
@@ -338,11 +338,12 @@ public class CameraActivity extends AppCompatActivity {
         @Override
         public void onDataReceived(List<String> info) {
             Log.i("UPDATED", "points updated");
+            startActivity(new Intent(CameraActivity.this, Leaderboard.class));
         }
 
         @Override
         public void onErrorResponse(VolleyError error) {
-
+            Log.i("ERROR", "points update error");
         }
     };
 
