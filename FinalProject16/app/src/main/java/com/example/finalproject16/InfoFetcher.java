@@ -51,6 +51,7 @@ public class InfoFetcher {
      *      listener wants an api call
      * @Post
      *      listener receives parsed info to be displayed or an error message
+     *      a user is returned with the email requested
      *
      * Source Zybooks 6.9
      * */
@@ -87,6 +88,7 @@ public class InfoFetcher {
      *      listener wants an api call
      * @Post
      *      listener receives parsed info to be displayed or an error message
+     *      all users are retrieved
      *
      * Source Zybooks 6.9
      * */
@@ -120,6 +122,7 @@ public class InfoFetcher {
      *      listener wants an api call
      * @Post
      *      listener receives parsed info to be displayed or an error message
+     *      user score is updated with +1 point
      *
      * Source Zybooks 6.9
      * */
@@ -157,6 +160,7 @@ public class InfoFetcher {
      *      listener wants an api call
      * @Post
      *      listener receives parsed info to be displayed or an error message
+     *      user is created in aws table
      *
      * Source Zybooks 6.9
      * */
@@ -187,10 +191,10 @@ public class InfoFetcher {
 
     /**
      * @Pre
-     *      json is from an api call with weather info
+     *      json is from an api call user info
      * @Post
-     *      info is a list of strings to be displayed with weather info
-     *      info contains: temp, main conditions, condition description, wind speed, feels like temp
+     *      info is a list of strings to be displayed
+     *      info contains: name and points
      *
      * Source Zybooks 6.9
      * */
@@ -218,10 +222,10 @@ public class InfoFetcher {
 
     /**
      * @Pre
-     *      json is from an api call with weather info
+     *      json is from an api call with user info
      * @Post
-     *      info is a list of strings to be displayed with weather info
-     *      info contains: temp, main conditions, condition description, wind speed, feels like temp
+     *      info is a list of strings to be displayed
+     *      info contains: email
      *
      * Source Zybooks 6.9
      * */

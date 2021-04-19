@@ -22,6 +22,11 @@ public class SignIn extends AppCompatActivity {
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
 
+    /**
+     * @pre an intent has been started with the target activity as signin
+     * @post activity is set to signin
+     *
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +59,21 @@ public class SignIn extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
+    /**
+     * @pre user attemped to call signin
+     * @post sign in client activity is started
+     *
+     * */
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    /**
+     * @pre app loaded
+     * @post if account exists user is sent to main
+     *
+     * */
     @Override
     protected void onStart() {
         super.onStart();
@@ -71,6 +86,11 @@ public class SignIn extends AppCompatActivity {
 
     }
 
+    /**
+     * @pre sign in client returns data
+     * @post result of sign in is handled
+     *
+     * */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

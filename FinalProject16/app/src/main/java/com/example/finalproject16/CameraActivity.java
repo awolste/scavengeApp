@@ -151,6 +151,11 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @pre the CameraActivity has returned
+     * @post the photo is displayed and the labels are detected
+     *
+     * */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -312,8 +317,8 @@ public class CameraActivity extends AppCompatActivity {
         /**
          * onClick is called when the learn more button is pressed
          * this function changes the activity page to the bio page
-         * @pre activity is set to main activity
-         * @post activity is set to bio page
+         * @pre activity is set to camera activity
+         * @post activity is set to maps page
          *
          * */
         public void onClick(View v) {
@@ -326,10 +331,7 @@ public class CameraActivity extends AppCompatActivity {
      *      fetcher is called
      * @Post
      *      data is recieved
-     *      temptextview is set
-     *      condtextview is set
-     *      windtextview is set
-     *      detailstextview is set
+     *      leaderboard is loaded
      *
      * Source Zybooks 5.2, 5.3
      * */

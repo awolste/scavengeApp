@@ -274,12 +274,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
+    /**
+     * @pre activity is loaded
+     * @post location updates removed
+     *
+     * */
     @Override
     public void onPause() {
         super.onPause();
         mClient.removeLocationUpdates(mLocationCallback);
     }
 
+    /**
+     * @pre activity loaded
+     * @post location updates restarted
+     *
+     * */
     @SuppressLint("MissingPermission")
     @Override
     public void onResume() {
@@ -290,6 +300,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * @pre asks for permissions
+     * @post permission status
+     *
+     * */
     private boolean hasLocationPermission() {
 
         // Request fine location permission if not already granted
@@ -306,6 +321,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return true;
     }
 
+    /**
+     * @pre home is clicked
+     * @post home activity started
+     *
+     * */
     public void goHome(View view) {
         startActivity(new Intent(MapsActivity.this, MainActivity.class));
     }

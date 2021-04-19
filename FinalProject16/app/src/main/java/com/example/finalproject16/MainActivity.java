@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private String email;
     /**
      * @pre the app has been started
-     * @post activity is set to MainActivity and shows the sign in page or home page if a user has already signed in
+     * @post activity is set to MainActivity and shows home page if a user has already signed in
      *
      * */
     private String firstName;
@@ -62,10 +62,10 @@ public class MainActivity extends AppCompatActivity {
         Button signOutButton = findViewById(R.id.sign_out_button);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             /**
-             * onClick is called when the learn more button is pressed
-             * this function changes the activity page to the bio page
-             * @pre activity is set to main activity
-             * @post activity is set to bio page
+             * onClick is called when the signout more button is pressed
+             * this function changes the activity page to the signin page
+             * @pre logged in
+             * @post logged out
              *
              * */
             public void onClick(View v) {
@@ -112,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * @pre the user is not in the table
+     * @post the email has been added to the database
+     *
+     * */
     private void createNew() {
         try {
             mInfoFetcher.createUser(mFetchListener2, email, firstName);
@@ -123,6 +128,13 @@ public class MainActivity extends AppCompatActivity {
 
     // Create an anonymous implementation of OnClickListener
     private View.OnClickListener mButtonClickListener = new View.OnClickListener() {
+        /**
+         * onClick is called when the leaderboard  button is pressed
+         * this function changes the activity page to the leaderboard page
+         * @pre activity is set to main activity
+         * @post activity is set to leaderboard page
+         *
+         * */
         public void onClick(View v) {
             startActivity(new Intent(MainActivity.this, Leaderboard.class));
         }
@@ -131,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
     // Create an anonymous implementation of OnClickListener
     private View.OnClickListener mButtonClickListener2 = new View.OnClickListener() {
         /**
-         * onClick is called when the learn more button is pressed
-         * this function changes the activity page to the bio page
+         * onClick is called when the maps button is pressed
+         * this function changes the activity page to the maps page
          * @pre activity is set to main activity
-         * @post activity is set to bio page
+         * @post activity is set to maps page
          *
          * */
         public void onClick(View v) {
@@ -144,10 +156,10 @@ public class MainActivity extends AppCompatActivity {
 
     private View.OnClickListener mButtonClickListener3 = new View.OnClickListener() {
         /**
-         * onClick is called when the learn more button is pressed
-         * this function changes the activity page to the bio page
+         * onClick is called when the about button is pressed
+         * this function changes the activity page to the about page
          * @pre activity is set to main activity
-         * @post activity is set to bio page
+         * @post activity is set to about page
          *
          * */
         public void onClick(View v) {
@@ -159,11 +171,8 @@ public class MainActivity extends AppCompatActivity {
      * @Pre
      *      fetcher is called
      * @Post
-     *      data is recieved
-     *      temptextview is set
-     *      condtextview is set
-     *      windtextview is set
-     *      detailstextview is set
+     *      data is recieved to see if the user exists
+     *      user is logged in
      *
      * Source Zybooks 5.2, 5.3
      * */
@@ -189,6 +198,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * @Pre
+     *      fetcher is called
+     * @Post
+     *      data is recieved
+     *      user is created
+     *
+     * Source Zybooks 5.2, 5.3
+     * */
     private InfoFetcher.OnDataReceivedListener mFetchListener2 = new InfoFetcher.OnDataReceivedListener() {
 
         @Override

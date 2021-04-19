@@ -54,8 +54,8 @@ public class Leaderboard  extends AppCompatActivity {
         /**
          * onClick is called when the learn more button is pressed
          * this function changes the activity page to the bio page
-         * @pre activity is set to main activity
-         * @post activity is set to bio page
+         * @pre activity is set to leaderboard activity
+         * @post activity is set to main page
          *
          * */
         public void onClick(View v) {
@@ -68,8 +68,8 @@ public class Leaderboard  extends AppCompatActivity {
         /**
          * onClick is called when the learn more button is pressed
          * this function changes the activity page to the bio page
-         * @pre activity is set to main activity
-         * @post activity is set to bio page
+         * @pre activity is set to leaderboard activity
+         * @post activity is set to maps page
          *
          * */
         public void onClick(View v) {
@@ -77,20 +77,18 @@ public class Leaderboard  extends AppCompatActivity {
         }
     };
 
-    /**
-     * @Pre
-     *      fetcher is called
-     * @Post
-     *      data is recieved
-     *      temptextview is set
-     *      condtextview is set
-     *      windtextview is set
-     *      detailstextview is set
-     *
-     * Source Zybooks 5.2, 5.3
-     * */
+
     private InfoFetcher.OnDataReceivedListener mFetchListener = new InfoFetcher.OnDataReceivedListener() {
 
+        /**
+         * @Pre
+         *      fetcher is called
+         * @Post
+         *      data is recieved
+         *      data is sorted and displayed
+         *
+         * Source Zybooks 5.2, 5.3
+         * */
         @Override
         public void onDataReceived(List<String> info) {
 
@@ -141,6 +139,14 @@ public class Leaderboard  extends AppCompatActivity {
             }
         }
 
+        /**
+         * @Pre
+         *      fetcher is called
+         * @Post
+         *      data was not found
+         *
+         * Source Zybooks 5.2, 5.3
+         * */
         @Override
         public void onErrorResponse(VolleyError error) {
             //email.setText(error.toString());

@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class About extends AppCompatActivity {
 
+    /**
+     * @pre an intent has been started with the target activity as About
+     * @post activity is set to About
+     *
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,9 +29,9 @@ public class About extends AppCompatActivity {
     private View.OnClickListener mButtonClickListener = new View.OnClickListener() {
         /**
          * onClick is called when the learn more button is pressed
-         * this function changes the activity page to the bio page
-         * @pre activity is set to main activity
-         * @post activity is set to bio page
+         * this function changes the activity page to the main page
+         * @pre activity is set to about activity
+         * @post activity is set to main page
          *
          * */
         public void onClick(View v) {
