@@ -1,3 +1,8 @@
+/**
+ * Andrew Wolstenholme (awolste) C11132861
+ * Nick Provost (nprovos) C13162083
+ * MainActivity.java
+ * */
 package com.example.finalproject16;
 
 import androidx.annotation.NonNull;

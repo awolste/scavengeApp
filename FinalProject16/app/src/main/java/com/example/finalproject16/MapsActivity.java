@@ -1,3 +1,10 @@
+/**
+ * Andrew Wolstenholme (awolste) C11132861
+ * Nick Provost (nprovos) C13162083
+ * MaosActivity.java
+ *
+ * Sources: Zybooks 9
+ * */
 package com.example.finalproject16;
 
 import android.Manifest;

@@ -1,5 +1,5 @@
-Andrew Wolstenholme (awolste)
-Nick Provost (nprovos)
+Andrew Wolstenholme (awolste) C11132861
+Nick Provost (nprovos) C13162083
 HTL Software
 Team16
 Final Project: scavenge

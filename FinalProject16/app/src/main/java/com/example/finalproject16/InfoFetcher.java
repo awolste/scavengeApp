@@ -1,3 +1,10 @@
+/**
+ * Andrew Wolstenholme (awolste) C11132861
+ * Nick Provost (nprovos) C13162083
+ * InfoFetcher.java
+ *
+ * Sources: Zybooks 6
+ * */
 package com.example.finalproject16;
 
 import android.content.Context;

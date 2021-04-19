@@ -1,3 +1,10 @@
+/**
+ * Andrew Wolstenholme (awolste) C11132861
+ * Nick Provost (nprovos) C13162083
+ * CameraActivity.java
+ *
+ * Sources: Zybooks 9
+ * */
 package com.example.finalproject16;
 
 import android.content.Intent;

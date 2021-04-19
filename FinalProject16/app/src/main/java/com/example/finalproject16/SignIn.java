@@ -1,3 +1,10 @@
+/**
+ * Andrew Wolstenholme (awolste) C11132861
+ * Nick Provost (nprovos) C13162083
+ * SignIn.java
+ *
+ * Sources: Google Android Signin
+ * */
 package com.example.finalproject16;
 
 import android.content.Intent;

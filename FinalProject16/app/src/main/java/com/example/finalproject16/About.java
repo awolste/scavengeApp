@@ -1,3 +1,8 @@
+/**
+ * Andrew Wolstenholme (awolste) C11132861
+ * Nick Provost (nprovos) C13162083
+ * About.java
+ * */
 package com.example.finalproject16;
 
 import android.content.Intent;
